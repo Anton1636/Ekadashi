@@ -1,3 +1,39 @@
+<?php
+
+$is_invalid = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    
+    $mysqli = require __DIR__ . "/config/serverConnect.php";
+    
+    $sql = sprintf("SELECT * FROM user
+                    WHERE email = '%s'",
+                   $mysqli->real_escape_string($_POST["email"]));
+    
+    $result = $mysqli->query($sql);
+    
+    $user = $result->fetch_assoc();
+    
+    if ($user) {
+        
+        if (password_verify($_POST["password"], $user["password_hash"])) {
+            
+            session_start();
+            
+            session_regenerate_id();
+            
+            $_SESSION["user_id"] = $user["id"];
+            
+            header("Location: index.php");
+            exit;
+        }
+    }
+    
+    $is_invalid = true;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,21 +111,26 @@
                 </div>
         </nav>
 
+        <?php if ($is_invalid): ?>
+            <em>Невірний логін</em>
+        <?php endif; ?>
+
         <form method="POST" action="login.php" class="row lg-3">
             <div class="col-auto ">
                 <label class="control-label ml-5" for="email"> Email </label>
-                <input name="email" type="email"  autofocus="autofocus" class="form-control mb-3 ml-5" placeholder="name@example.com">
+                <input id="email" value="<?= htmlspecialchars($_POST["email"] ?? "") ?>" name="email" type="email"  autofocus="autofocus" class="form-control mb-3 ml-5" placeholder="name@example.com">
             </div>
             <div class="col-auto">
                 <label class="control-label  ml-5" for="password"> Пароль </label>
-                <input name="password" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Пароль" aria-label="default input example">
+                <input id="password" name="password" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Пароль" aria-label="default input example">
             </div>
             <div class="col-auto">
 
             </div>
+            <button type="submit" name="login_btn" class="btn btn-primary btn-lg mt-3 ml-5"" >Увійти</button>
         </form>
 
-        <button type="submit" name="login_btn" class="btn btn-primary btn-lg mt-3 ml-5"" >Увійти</button>
+        
 
             <div class="mt-4 ml-5">
                 <span >Ще не зареєстрований? <a href="register.php">Зареєструватись</a></span>

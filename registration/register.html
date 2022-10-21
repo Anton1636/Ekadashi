@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js" defer></script>
+  <script src="/js/validation.js" defer></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-light py-2">
@@ -75,26 +77,26 @@
             </div>
     </nav>
 
-    <form method="POST" action="register.php" class="row lg-6">
+    <form method="POST" action="process-signup.php" class="row lg-6" id="signup" novalidate>
         <div class="col-auto">
-            <label class="control-label ml-5" aria-hidden="true" for="firstName" >Ім'я</label>
-            <input name="firstName" autofocus="autofocus" type="text" placeholder="Ім'я"  aria-label="default input example" class="form-control ml-5"/>
+            <label class="control-label ml-5" aria-hidden="true" for="name" >Ім'я</label>
+            <input id="name" name="name" autofocus="autofocus" type="text" placeholder="Ім'я"  aria-label="default input example" class="form-control ml-5"/>
         </div>
         <div class="col-auto">
-            <label class="control-label ml-5" for="lastName"> Прізвище</label>
-            <input name="lastName" type="text" placeholder="Прізвище" aria-label="default input example" class="form-control ml-5" autofocus="autofocus"/>
+            <label class="control-label ml-5" for="surname"> Прізвище</label>
+            <input id="surname" name="surname" type="text" placeholder="Прізвище" aria-label="default input example" class="form-control ml-5" autofocus="autofocus"/>
         </div>
         <div class="col-auto">
             <label class="control-label ml-5" for="email"> Email </label>
-            <input name="email" type="email"  autofocus="autofocus" class="form-control mb-3 ml-5" placeholder="name@example.com">
+            <input id="email" name="email" type="email"  autofocus="autofocus" class="form-control mb-3 ml-5" placeholder="name@example.com">
         </div>
         <div class="col-auto">
             <label class="control-label  ml-5" for="password"> Пароль </label>
-            <input name="password" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Пароль" aria-label="default input example">
+            <input id="password" name="password" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Пароль" aria-label="default input example">
         </div>
         <div class="col-auto">
-            <label class="control-label  ml-5" for="password"> Підтвердити пароль </label>
-            <input name="password" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Підтвердити пароль" aria-label="default input example">
+            <label class="control-label  ml-5" for="password_confirm"> Підтвердити пароль </label>
+            <input id="password_confirm" name="password_confirm" class="form-control  ml-5" autofocus="autofocus" type="password" placeholder="Підтвердити пароль" aria-label="default input example">
         </div>
         <div class="col-auto">
 
